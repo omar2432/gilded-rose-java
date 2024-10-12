@@ -6,6 +6,7 @@ class GildedRose {
     private static final String AGED_BRIE = "Aged Brie";
     private static final String BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert";
     private static final String SULFURAS = "Sulfuras, Hand of Ragnaros";
+    private static final String CONJURED = "Conjured";
 
     static Item[] items;
 
@@ -32,6 +33,8 @@ class GildedRose {
                 updateAgedBrie(item);
             } else if (item.name.equals(BACKSTAGE_PASSES)) {
                 updateBackstagePasses(item);
+            } else if (item.name.equals(CONJURED)) {
+                updateConjuredItem(item);
             } else {
                 updateRegularItem(item);
             }
@@ -41,6 +44,7 @@ class GildedRose {
             }
         }
     }
+
 
     private static void updateSellIn(Item item) {
         item.sellIn--;
@@ -60,6 +64,10 @@ class GildedRose {
         } else {
             increaseQuality(item);
         }
+    }
+
+    private static void updateConjuredItem(Item item) {
+        decreaseQuality(item,2);
     }
 
     private static void updateRegularItem(Item item) {
@@ -87,8 +95,12 @@ class GildedRose {
     }
 
     private static void decreaseQuality(Item item) {
+        decreaseQuality(item,1);
+    }
+
+    private static void decreaseQuality(Item item, int amount) {
         if (item.quality > MIN_QUALITY) {
-            item.quality--;
+            item.quality= Math.max(item.quality - amount, MIN_QUALITY);
         }
     }
 }
