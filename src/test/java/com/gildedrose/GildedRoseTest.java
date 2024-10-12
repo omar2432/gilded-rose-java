@@ -104,4 +104,16 @@ class GildedRoseTest {
     }
 
 
+    @Test
+    void conjured_items_degrade_in_Quality_twice_as_fast() {
+        Item[] items = new Item[] { new Item("Conjured", 10, 9) };
+        GildedRose app = new GildedRose(items);
+        app.updateQuality();
+        assertEquals(7, app.items[0].quality);
+
+        app.updateQuality();
+        assertEquals(5, app.items[0].quality);
+    }
+
+
 }
